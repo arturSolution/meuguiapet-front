@@ -1,0 +1,52 @@
+<div class="table-responsive">
+  <div class="table table-striped table-hover">
+      <div class="row">
+          <div class="col-md-12">
+              <div class="card">
+                  <div class="card-header card-header-danger">
+                      <h4 class="card-title ">Perfis</h4>
+                      <p class="card-category"> Total: {{pageForm?.totalElements}}</p>
+                  </div>                  
+                  <div class="card-body">
+                      <div class="table-responsive">
+                          <table class="table">
+                              <thead class=" text-primary">
+                                <th>
+                                  Foto
+                                </th>
+                                <th>
+                                    Nome
+                                </th>  
+                                <th>
+                                  Email
+                              </th>                                                                                                   
+                                  
+                              </thead>
+                              <tbody>
+                                  <tr *ngFor="let usuario of usuarios" routerLink="usuario/{{usuario.id}}">
+                                    <td>
+                                        <img  src="{{usuario.fotoPrincipal}}" width="150" height="150" *ngIf="usuario.fotoPrincipal else SemFoto"/>                                        
+                                        <ng-template #SemFoto>
+                                          <img  src="https://meuguiapet.com/wp-content/uploads/2018/05/meuguipet_logo_mobile.svg" width="150" height="150" />                                        
+                                        </ng-template>
+                                      </td>                                      
+                                      <td>
+                                        {{usuario.nome}} {{usuario.sobreNome}}
+                                      </td>                                                                           
+                                      <td>
+                                        {{usuario.email}}
+                                      </td>                                                                           
+                                </tr>
+                              </tbody>
+                          </table>
+                      </div>
+                  </div>
+                  <mat-panel-description>
+                    <mat-paginator [length]="pager?.totalElements" (page)="paginar($event)" [pageSize]="pager?.size" >
+                    </mat-paginator>
+                </mat-panel-description>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>

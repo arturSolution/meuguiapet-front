@@ -1,0 +1,38 @@
+
+  <div style="background-color: white; padding: 16px; z-index: 30px;box-shadow: 5px 3px 3px gray;">
+    <div style="text-align: left">
+      <form id="frm_usuario_filter">
+        <div style="width: 50%;">
+          <div class="form-group">
+            <fieldset>
+              <label>Nome</label>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1"><i class="fa fa-building"></i></span>
+                </div>
+                <input id="ipt_nome" name="nome" type="text" class="form-control" placeholder="" [(ngModel)]="usuario.nome"/>
+              </div>
+            </fieldset>
+
+            <fieldset>
+              <label>Email</label>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1"><i class="fa fa-building"></i></span>
+                </div>
+                <input id="ipt_email" name="email" type="text" class="form-control" placeholder="" [(ngModel)]="usuario.email"/>
+              </div>
+            </fieldset>
+            
+          </div>
+        </div>
+        <div style="text-align:center">
+          <button id="btn_buscar" type="submit" class="btn btn-primary" style="margin:8px;" (click)="buscar()">Buscar</button>
+          <button id="btn_limpar" type="button" class="btn btn-secondary" style="margin:8px;" (click)="limpar()" >Limpar</button>          
+        </div>        
+      </form>
+    </div>
+  </div>
+  <app-usuario-list [usuario]='usuario' [usuarios]='usuarios' [pageForm]='pageForm' ></app-usuario-list>
+  
+

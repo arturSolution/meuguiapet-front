@@ -1,0 +1,48 @@
+
+<mat-card class="example-card" *ngIf="false">
+  <mat-card-header>
+    <div mat-card-avatar class="example-header-image"></div>
+    <mat-card-title>{{anuncio.id}} - </mat-card-title>
+    
+  </mat-card-header>
+  <img  [src]="anuncio.fotoPrincipal" width="150" height="150" >
+  <mat-card-content>
+    <p>
+      {{anuncio.descricao}}
+    </p>
+  </mat-card-content>  
+</mat-card>
+
+
+
+<div class="card card-style" *ngIf="false">  
+  <img [src]="anuncio.fotoPrincipal" style="position: absolute; z-index:100; top:15px; left: 10px; width: 40px; height: 30px" />  
+
+  <div class="card-body" >
+    <h5 class="card-title"> {{anuncio.titulo}} </h5>
+    
+    <ul>
+      <li >{{anuncio.endereco}}</li>
+    </ul>
+
+  </div>
+  <mat-divider></mat-divider>
+  <div class="card-footer">
+    <small><mat-chip-list        
+      cdkDropList 
+      cdkDropListOrientation="horizontal"   >
+      <mat-chip
+        class="example-box"
+        cdkDrag
+        *ngFor="let categoria of anuncio.categorias">
+        {{categoria.descricao}}
+      </mat-chip>
+    </mat-chip-list></small>
+  </div>
+</div>
+
+
+
+
+
+  

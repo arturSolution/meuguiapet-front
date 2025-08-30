@@ -1,0 +1,38 @@
+<div  >
+      
+  <div  layout-fill [ngStyle]="{'color': 'white'}">
+    
+      <div fxFlex="100" fxLayout="row" fxLayoutAlign="space-between start">
+        <input type="file"
+              id="file"  mat-input
+              multiple (change)="adicionarFoto($event)" />
+      </div>
+    
+  </div>
+
+  <div  class="container" > 
+    <div class="row justify-content-md-center" >          
+        <div class="col-md-auto " *ngFor="let foto of fotos;" >
+          <div class="card" style="width: 250px; height: 250px;">
+            {{foto}}
+            <img [src]="foto" class="card-img-top" >
+            <button id="btn_voltar" color="danger" style="background-color: #f86a49; color: white; font-size: 1.2rem;"
+                    (click)=excluirFoto(foto) >
+                  
+                    
+              </button>                
+          </div>           
+        
+    </div>
+  </div>
+  
+    <ng-template #fotosVazias >
+      <div layout-fill class="row justify-content-md-center" style="max-width: 150px;">
+      <span> Ainda não existem fotos adicionadas</span>
+      
+      </div>
+    </ng-template>      
+
+  </div>         
+</div>
+

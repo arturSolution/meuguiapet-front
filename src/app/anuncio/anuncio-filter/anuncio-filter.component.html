@@ -1,0 +1,46 @@
+
+  <div style="background-color: white; padding: 16px; z-index: 30px;box-shadow: 5px 3px 3px gray;">
+    <div style="text-align: left">
+      <form id="frm_usuario_filter">
+        <div style="width: 50%;">
+          <div class="form-group">
+            <fieldset>
+              <label>Titulo</label>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1"><i class="fa fa-building"></i></span>
+                </div>
+                <input id="ipt_nome" name="nome" type="text" class="form-control" placeholder="" [(ngModel)]="anuncio.titulo"/>
+              </div>
+            </fieldset>
+            <fieldset>
+              <label>Categoria</label>
+              <div class="input-group">             
+                <mat-form-field fxFlex="45">
+                  <mat-select
+                    id="categoria"
+                    name="categoria"                    
+                    [(ngModel)]="anuncio.categoria.id"                    
+                    >                
+                  <mat-option [value]="categoria.id"
+                  *ngFor="let categoria of categorias"
+                  >
+                  {{categoria.nome}}
+                </mat-option>                               
+                  </mat-select>
+                </mat-form-field>              
+                
+              </div>
+            </fieldset>
+          </div>
+        </div>
+        <div style="text-align:center">
+          <button id="btn_buscar" type="submit" class="btn btn-primary" style="margin:8px;" (click)="buscar()">Buscar</button>
+          <button id="btn_limpar" type="button" class="btn btn-secondary" style="margin:8px;" (click)="limpar()">Limpar</button>          
+        </div>        
+      </form>
+    </div>
+  </div>
+  <anuncio-list [anuncio]='anuncio' [anuncios]='anuncios' [pageForm]='pageForm' [categoria]='anuncio.categoria.descricao'></anuncio-list>
+  
+

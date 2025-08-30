@@ -1,0 +1,212 @@
+<div layout="column" layout-fill>
+  <div align="left" layout="row" layout-align="center center">       
+      <a id="voltar" routerLink="anuncio" >Voltar </a>
+  </div>
+<div align="center" layout="row" layout-align="center center">
+  <mat-card
+    class="info-card mat-elevation-z8"    
+    style="margin-top: 60px; max-width: 800px;;"
+  >
+    <mat-card-title> {{anuncio.id}} - {{anuncio.plano}}</mat-card-title>
+    <mat-card-subtitle></mat-card-subtitle>
+
+    <mat-card-content fxLayout="column" fxLayoutAlign="left">
+      <mat-hint *ngIf="submitted">
+        
+      </mat-hint>
+      <mat-hint *ngIf="error">
+        <div class="alert alert-danger" role="alert">
+           
+        </div>
+      </mat-hint>       
+      <form
+        fxLayout="column"
+        fxLayoutAlign="start stretch"
+        #anuncioForm="ngForm"                
+        id="frm_anuncio_form"
+        (ngSubmit)='editar()'
+      >
+      <div fxFlex="100" fxLayout="row" fxLayoutAlign="space-between start">
+        
+          <img class="imgTitulo" [src]="anuncio.fotoPrincipal" width="300" height="300" />                                
+          
+      </div> 
+
+        <div fxFlex="100" fxLayout="row" fxLayoutAlign="space-between start">
+          <mat-form-field fxFlex="90">
+            <input
+              id="ipt_titulo"
+              name="titulo"
+              autocomplete="off"
+              required
+              minlength="3"
+              matInput
+              type="text"
+              class="form-control"
+              value=""              
+              placeholder="Titulo"
+              [(ngModel)]="anuncio.titulo"
+              #nomeField="ngModel"
+            />            
+          </mat-form-field>          
+        </div>               
+        
+        <div fxFlex="100" fxLayout="row" fxLayoutAlign="space-between start" fxFlex="45">
+          <fieldset fxFlex="90">          
+            <label>Descrição</label>
+            <br />
+            <textarea id="descricao" name="descricao" #descricaoField class="form-control" matInput cols="30" rows="7"
+               [(ngModel)]="anuncio.descricao"></textarea>
+            </fieldset>
+        </div> 
+
+        <div fxFlex="100" fxLayout="row" fxLayoutAlign="space-between start">
+          <mat-form-field fxFlex="45">
+            <input
+              id="ipt_zap"
+              name="zap"
+              autocomplete="off"
+              matInput
+              type="text"
+              class="form-control"
+              value=""              
+              placeholder="Zap"
+              [(ngModel)]="anuncio.zap"
+              #zapField="ngModel"
+            />            
+          </mat-form-field>   
+          <mat-form-field fxFlex="45">
+            <input
+              id="ipt_face"
+              name="face"
+              autocomplete="off"
+              matInput
+              type="text"
+              class="form-control"
+              value=""              
+              placeholder="Face"
+              [(ngModel)]="anuncio.face"
+              #faceField="ngModel"
+            />            
+          </mat-form-field>          
+        </div>   
+
+        <div fxFlex="100" fxLayout="row" fxLayoutAlign="space-between start">
+          <mat-form-field fxFlex="45">
+            <input
+              id="ipt_fone"
+              name="fone"
+              autocomplete="off"
+              matInput
+              type="text"
+              class="form-control"
+              value=""              
+              placeholder="Fone"
+              [(ngModel)]="anuncio.fone"
+              #foneField="ngModel"
+            />            
+          </mat-form-field>   
+          <mat-form-field fxFlex="45">
+            <input
+              id="ipt_insta"
+              name="insta"
+              autocomplete="off"
+              matInput
+              type="text"
+              class="form-control"
+              value=""              
+              placeholder="Instagram"
+              [(ngModel)]="anuncio.insta"
+              #instaField="ngModel"
+            />            
+          </mat-form-field>          
+        </div>   
+
+        <div fxFlex="100" fxLayout="row" fxLayoutAlign="space-between start">
+          <mat-form-field fxFlex="45">
+            <input
+              id="ipt_email"
+              name="email"
+              autocomplete="off"
+              matInput
+              type="text"
+              class="form-control"
+              value=""              
+              placeholder="Email"
+              [(ngModel)]="anuncio.email"
+              #foneField="ngModel"
+            />            
+          </mat-form-field>   
+          <mat-form-field fxFlex="45">
+            <input
+              id="ipt_site"
+              name="site"
+              autocomplete="off"
+              matInput
+              type="text"
+              class="form-control"
+              value=""              
+              placeholder="Site"
+              [(ngModel)]="anuncio.site"
+              #siteField="ngModel"
+            />            
+          </mat-form-field>          
+        </div>   
+        <div>
+          <small ><mat-chip-list        
+            cdkDropList 
+            cdkDropListOrientation="vertical"   >
+            <mat-chip      
+              cdkDrag
+              *ngFor="let categoria of anuncio.categorias">
+              {{categoria.descricao}}
+            </mat-chip>
+          </mat-chip-list></small>
+        </div>
+            <div >
+              <b>Horários:</b>
+              <p></p>
+              <mat-list *ngFor='let horario of anuncio.cronogramas'>
+                <mat-list-item *ngIf="horario.ativo"> {{horario.dia}} - {{horario.horaInicio}} até {{horario.horaFim}} </mat-list-item>                
+               </mat-list>
+            </div>
+            <div >
+              <b>Pagamentos:</b>
+              <p></p>
+              <small ><mat-chip-list        
+                cdkDropList 
+                cdkDropListOrientation="vertical"   >
+                <mat-chip      
+                  cdkDrag
+                  *ngFor="let pgto of anuncio.tiposPagamento">
+                  {{pgto}}
+                </mat-chip>
+              </mat-chip-list></small>
+
+            </div>
+            <p></p>
+            <div class="gallery" *ngFor="let foto of anuncio.fotosDesc">
+              
+                <img [src]="foto" alt="Cinque Terre" width="300" height="300" style="border-radius: 8px;padding: 5px;">
+              
+              
+            </div>
+            <p></p>
+            <div >
+              {{anuncio.endereco}}
+            </div>
+            <div fxLayout="row">
+              <button id="btn_inserir" mat-button color="primary" type="submit" >
+                EDITAR
+              </button>
+    
+              <button id="btn_excluir" mat-button color="primary" type="button" (click)="excluir()">
+                EXCLUIR
+              </button>
+            </div>   
+      </form>
+    </mat-card-content>
+    <mat-card-footer> </mat-card-footer>
+  </mat-card>
+</div>
+</div>

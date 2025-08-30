@@ -1,0 +1,126 @@
+<div layout="column" layout-fill>
+  <div align="left" layout="row" layout-align="center center">       
+      <a id="voltar" routerLink="anuncio" >Voltar </a>
+  </div>
+<div align="center" layout="row" layout-align="center center">
+  <mat-card
+    class="info-card mat-elevation-z8"    
+    style="margin-top: 60px; max-width: 800px;;"
+  >
+    <mat-card-title> Usuario {{usuario.nome}}</mat-card-title>
+    <mat-card-subtitle></mat-card-subtitle>
+
+    <mat-card-content fxLayout="column" fxLayoutAlign="left">
+      <mat-hint *ngIf="submitted">
+        
+      </mat-hint>
+      <mat-hint *ngIf="error">
+        <div class="alert alert-danger" role="alert">
+           
+        </div>
+      </mat-hint>       
+      <form
+        fxLayout="column"
+        fxLayoutAlign="start stretch"
+        #usuarioForm="ngForm"                
+        id="frm_usuario_form"
+        (ngSubmit)='editar()'
+      >
+      <div fxFlex="100" fxLayout="row" fxLayoutAlign="space-between start">
+        
+          <img class="imgTitulo" [src]="usuario.foto" width="300" height="300" />                                
+          
+      </div> 
+
+        <div fxFlex="100" fxLayout="row" fxLayoutAlign="space-between start">
+          <mat-form-field fxFlex="45">
+            <input
+              id="ipt_nome"
+              name="nome"
+              autocomplete="off"
+              required
+              minlength="3"
+              matInput
+              type="text"
+              class="form-control"
+              value=""              
+              placeholder="Nome"
+              [(ngModel)]="usuario.nome"
+              #nomeField="ngModel"
+            />            
+          </mat-form-field>          
+          <mat-form-field fxFlex="45">
+            <input
+              id="ipt_email"
+              name="email"
+              autocomplete="off"
+              required
+              minlength="3"
+              matInput
+              type="text"
+              class="form-control"
+              value=""              
+              placeholder="Email"
+              [(ngModel)]="usuario.email"
+              #nomeField="ngModel"
+            />            
+          </mat-form-field>          
+        </div> 
+        
+        <div fxFlex="100" fxLayout="row" fxLayoutAlign="space-between start">
+          <mat-form-field fxFlex="45">
+            <input
+              id="ipt_fone"
+              name="fone"
+              autocomplete="off"              
+              minlength="3"
+              matInput
+              type="text"
+              class="form-control"
+              value=""              
+              placeholder="Fone"
+              [(ngModel)]="usuario.fone"
+              #nomeField="ngModel"
+            />            
+          </mat-form-field>         
+          <mat-form-field fxFlex="45">
+            <input
+              id="ipt_login"
+              name="ipt_login"
+              autocomplete="off"              
+              minlength="3"
+              matInput
+              type="text"
+              class="form-control"
+              value=""              
+              placeholder="Login de Usuário"
+              [(ngModel)]="usuario.login"
+              #loginField="ngModel"
+            />            
+          </mat-form-field> 
+                 
+        </div> 
+        <div fxFlex="100" fxLayout="row" fxLayoutAlign="space-between start">
+          
+          <fieldset fxFlex="45">
+            Data de Registro:
+            <p></p>
+            <b>{{usuario.dataCadastro | date:DATA_HORA}}</b>
+          </fieldset>
+        </div>
+        
+        <div fxLayout="row">
+          <button id="btn_inserir" mat-button color="primary" type="submit" >
+            EDITAR
+          </button>
+
+          <button id="btn_excluir" mat-button color="primary" type="button" (click)="excluir()">
+            EXCLUIR
+          </button>
+        </div>   
+      </form>
+    </mat-card-content>
+    <mat-card-footer> </mat-card-footer>
+  </mat-card>
+</div>
+</div>
