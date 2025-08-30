@@ -1,4 +1,4 @@
-name: workflow kite
+name: workflow meuguiapet
 
 on:
   push:
