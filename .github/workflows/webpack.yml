@@ -1,63 +1,51 @@
-name: workflow guiapet
+name: Deploy to GitHub Pages
 
 on:
   push:
     branches:
-      - 'develop'
-  pull_request:
-    branches: "develop"
+      - develop   # 👉 você pode trocar para main se quiser deploy em produção
 
 jobs:
   build:
+    name: Build Project
     runs-on: ubuntu-20.04
 
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
-
-    - name: Set up Python 3.14.0-alpha.0
-      uses: actions/setup-python@v3
-      with:
-        python-version: 3.14.0-alpha.0
-
-    - name: Verify Python version
-      run: python --version
-
-  build-and-test:
-    name: Build and Test
-    runs-on: ubuntu-20.04
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Use Node 16.19.0
+
+      - name: Setup Node
         uses: actions/setup-node@v3
         with:
           node-version: '16.19.0'
+
       - name: Install dependencies
-        run: npm i -f
-      - name: Build
-        run: npm run build 
+        run: npm ci
+
+      - name: Build project
+        run: npm run build
+
       - name: Archive build
-        if: success()
         uses: actions/upload-artifact@v3
         with:
           name: deploy_dist
           path: dist
-       
+
   deploy:
-    name: Deploy
+    name: Deploy to GitHub Pages
     runs-on: ubuntu-20.04
-    needs: build-and-test
+    needs: build
+
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: Download build
+      - name: Download build artifact
         uses: actions/download-artifact@v3
         with:
           name: deploy_dist
-      - name: Deploy to GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@releases/v3
+          path: ./deploy_dist
+
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          BRANCH: gh-pages
-          FOLDER: .
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: gh-pages       # branch onde será publicado
+          folder: ./deploy_dist  # pasta do build gerado
