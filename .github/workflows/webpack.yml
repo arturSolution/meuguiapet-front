@@ -1,51 +1,44 @@
-name: Deploy to GitHub Pages
+name: Webpack Build & Deploy
 
 on:
   push:
     branches:
-      - develop   # 👉 você pode trocar para main se quiser deploy em produção
+      - develop   # Build em dev      
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
 
 jobs:
-  build:
-    name: Build Project
-    runs-on: ubuntu-20.04
-
+  build-and-deploy:
+    runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-      - name: Setup Node
+      - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '16.19.0'
+          node-version: 16
 
       - name: Install dependencies
         run: npm ci
 
-      - name: Build project
-        run: npm run build
+      - name: Build with Webpack
+        run: npm run build  # ajuste se o comando for diferente
 
-      - name: Archive build
+      - name: Upload build artifact
         uses: actions/upload-artifact@v3
         with:
-          name: deploy_dist
-          path: ./deploy_dist
+          name: webpack_dist
+          path: dist
 
-  deploy:
-    name: Deploy to GitHub Pages
-    runs-on: ubuntu-20.04
-    needs: build
-
-    steps:
-      - name: Download build artifact
-        uses: actions/download-artifact@v3
-        with:
-          name: deploy_dist
-          path: ./dist
-
-      - name: Deploy 🚀
+      - name: Deploy JS/CSS to GitHub Pages
+        if: github.ref == 'refs/heads/develop'   # só deploy em produção
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          branch: gh-pages       # branch onde será publicado
-          folder: ./deploy_dist  # pasta do build gerado
+          branch: gh-pages
+          folder: dist
