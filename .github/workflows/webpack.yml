@@ -41,11 +41,11 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: deploy_dist
-          path: ./deploy_dist
+          path: ./dist
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           branch: gh-pages       # branch onde será publicado
-          folder: ./deploy_dist  # pasta do build gerado
+          folder: ./dist  # pasta do build gerado
